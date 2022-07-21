@@ -1,0 +1,18 @@
+.container{
+    display: flex;
+    flex-direction: column;
+    width: 20%;
+
+}
+.container input{
+    height: 25px !important;
+    outline: none;
+    border: 1px solid rgb(0, 139, 139);
+}
+.container button{
+    margin-top: 15px;
+    cursor: pointer;
+    height: 29px;
+    font-weight: 800;
+    width: 70%;
+}

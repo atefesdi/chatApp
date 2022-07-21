@@ -1,0 +1,38 @@
+.msg-container {
+  margin-bottom: 15px;
+  margin: 10px;
+
+  display: flex;
+  flex-direction: column;
+
+  justify-content: center;
+}
+.right{
+    align-items: flex-start;
+}
+.left{
+    align-items: flex-end;
+}
+
+.text-container {
+  background-color: #ffff;
+  border-radius: 5px;
+  padding: 15px;
+  margin: 0;
+}
+.meta-text {
+  width: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: x-small;
+  min-width: 40px !important;
+  color: rgb(73, 73, 73);
+
+}
+.you{
+    background-color: rgb(163, 235, 163) !important;
+}
+.another{
+    background-color: #ffff!important;
+}
