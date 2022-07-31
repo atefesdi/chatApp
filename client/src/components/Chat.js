@@ -32,7 +32,7 @@ function Chat(props) {
       console.log('text' , username)
       let notif = {
         username: username,
-        Message: `${username} left room `,
+        Message: `${username} left the room `,
         room: "null",
         author: "null",
         time:

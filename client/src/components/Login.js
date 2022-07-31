@@ -26,7 +26,7 @@ function Login(props) {
   return (
     <div className={styles["container"]}>
       <h1>welcome to messenger</h1>
-      <label htmlFor="username">username :</label>
+      <label htmlFor="username">username:</label>
       <input
         id="username"
         name="username"

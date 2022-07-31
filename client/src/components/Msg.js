@@ -26,7 +26,7 @@ function Msg(props) {
         {props.Message}
       </p>
       <div className={styles["meta-text"]}>
-        <div>{props.author !== "null"? props.author :""}</div>
+        <div>{props.author != "null"? props.author :""}</div>
         <div>{props.time}</div>
       </div>
     </div>
