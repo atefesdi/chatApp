@@ -37,8 +37,8 @@ io.on("connection", (socket) => {
 
   socket.on("disconnect", () => {
     const disconnectedUser = allUsers.filter((item) => item.id == socket.id);
-    const userrr = disconnectedUser.pop();
-    const { username, room } = userrr;
+    const userr = disconnectedUser.pop();
+    const { username, room } = userr;
     socket.to(room).emit("disconnect-message", username);
   });
 });
