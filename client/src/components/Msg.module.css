@@ -36,3 +36,10 @@
 .another{
     background-color: #ffff!important;
 }
+.notifContainer{
+  align-items: center;
+}
+.notif{
+  background-color: rgb(184, 184, 184);
+  padding: 1px !important;
+}
