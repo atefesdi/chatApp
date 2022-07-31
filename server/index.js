@@ -15,20 +15,31 @@ const io = new Server(server, {
   },
 });
 
-io.on("connection", (socket) => {
-  console.log(socket.id);
 
+let allUsers = [];
+io.on("connection", (socket) => {
   socket.on("join-room", (data) => {
-    socket.join(data);
-    console.log(`user with id ${socket.id} join room ${data}`)
+    socket.join(data.room);
+    const user = {
+      room: data.room,
+      username: data.username,
+      id: socket.id,
+    };
+    allUsers.push(user);
+    console.log("users =", allUsers);
+    console.log(`user with id ${socket.id} join room ${data.room}`);
+    socket.to(data.room).emit("join-message", data.username);
   });
 
-  socket.on("send-message" , (data)=>{
-    socket.to(data.room).emit("recive-message" , data)
-  })
+  socket.on("send-message", (data) => {
+    socket.to(data.room).emit("recive-message", data);
+  });
 
   socket.on("disconnect", () => {
-    console.log("user disconnected", socket.id);
+    const disconnectedUser = allUsers.filter((item) => item.id == socket.id);
+    const userrr = disconnectedUser.pop();
+    const { username, room } = userrr;
+    socket.to(room).emit("disconnect-message", username);
   });
 });
 
