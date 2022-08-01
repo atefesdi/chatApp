@@ -3,9 +3,7 @@ const app = express();
 const http = require("http");
 const cors = require("cors");
 const { Server } = require("socket.io");
-
 app.use(cors());
-
 const server = http.createServer(app);
 
 const io = new Server(server, {
@@ -27,19 +25,26 @@ io.on("connection", (socket) => {
     };
     allUsers.push(user);
     console.log("users =", allUsers);
-    console.log(`user with id ${socket.id} join room ${data.room}`);
     socket.to(data.room).emit("join-message", data.username);
+
+    otherusers = allUsers.filter(item => socket.id !== item.id )
   });
+  
+  socket.on("contact" , ()=>{
+
+    socket.to(data.room).emit("get-contact" ,allUsers)
+  })
 
   socket.on("send-message", (data) => {
-    socket.to(data.room).emit("recive-message", data);
+    socket.to(data.room).emit("recive-message",data);
   });
 
   socket.on("disconnect", () => {
     const disconnectedUser = allUsers.filter((item) => item.id == socket.id);
+    allUsers = allUsers.filter(item => socket.id !== item.id)
     const userrr = disconnectedUser.pop();
-    const { username, room } = userrr;
-    socket.to(room).emit("disconnect-message", username);
+ 
+   socket.to(userrr?.room).emit("disconnect-message", userrr?.username);
   });
 });
 

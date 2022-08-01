@@ -6,15 +6,16 @@ import Msg from "./Msg";
 function Chat(props) {
   const [Message, setMessage] = useState();
   const [messageList, setMessageList] = useState([]);
-  const [peopleJoinRoom, setPeopleJoinRoom] = useState("");
   const { socket, roomValue, usernameValue } = props;
 
+
   useEffect(() => {
+
     socket.on("recive-message", (data) => {
       setMessageList([...messageList, data]);
     });
+
     socket.on("join-message", (username) => {
-      console.log(`someone join in the room ${username}`);
       let notif = {
         username: username,
         Message: `${username} join in the room `,
@@ -27,6 +28,7 @@ function Chat(props) {
       };
       setMessageList([...messageList, notif]);
     });
+ 
 
     socket.on("disconnect-message", (username)=>{
       console.log('text' , username)

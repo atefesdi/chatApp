@@ -1,0 +1,18 @@
+.contact-container{
+    box-sizing: border-box;
+    height: 8%;
+    width: 90%;
+    background-color:#fff ;
+    border-radius: 5px;
+    border: 1px solid #fff;
+    padding: 5px;
+    margin: 10px;
+    overflow: auto;
+    display: flex;
+    cursor: pointer;
+    justify-content: center;
+    align-items: center;
+}
+.contact-container:hover{
+    border: 1px solid darkgreen;
+}

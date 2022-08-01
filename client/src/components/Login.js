@@ -1,11 +1,17 @@
-
-import {useState} from "react"
-import styles from "./login.module.css"
-
+import { useState } from "react";
+import styles from "./login.module.css";
 
 function Login(props) {
-
-  const {socket , setLoginFlag ,setroomValue ,setUsernameValue , roomValue, usernameValue}= props
+  const {
+    socket,
+    setLoginFlag,
+    setroomValue,
+    setUsernameValue,
+    roomValue,
+    usernameValue,
+    setUsers,
+    users,
+  } = props;
 
   function usernameHandler(event) {
     setUsernameValue(event.target.value);
@@ -17,12 +23,11 @@ function Login(props) {
 
   function joinChatHandler() {
     if (roomValue !== "" && usernameValue !== "") {
-      const data= {room:roomValue ,username: usernameValue}
+      const data = { room: roomValue, username: usernameValue };
       socket.emit("join-room", data);
-      setLoginFlag(true)
+      setLoginFlag(true);
     }
   }
-
   return (
     <div className={styles["container"]}>
       <h1>welcome to messenger</h1>
