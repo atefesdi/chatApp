@@ -16,14 +16,14 @@ function App() {
   useEffect(()=>{
 
       socket.on("get-contact", (allUsers) => {
-        if (roomValue === allUsers[0].room) {
+        if (roomValue === allUsers[0]?.room) {
           setUsers([...allUsers]);
         }
         console.log("all users:" , allUsers)
       });
     
-  },[])
-  console.log(users , "dddddd")
+      console.log(users , "dddddd")
+  },[loginFlag])
 
 
 

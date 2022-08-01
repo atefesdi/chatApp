@@ -28,12 +28,11 @@ io.on("connection", (socket) => {
     socket.to(data.room).emit("join-message", data.username);
 
     otherusers = allUsers.filter(item => socket.id !== item.id )
+    setInterval(function () {socket.to(data.room).emit("get-contact" ,allUsers)}, 1000);
+    
   });
   
-  socket.on("contact" , ()=>{
-
-    socket.to(data.room).emit("get-contact" ,allUsers)
-  })
+  
 
   socket.on("send-message", (data) => {
     socket.to(data.room).emit("recive-message",data);
