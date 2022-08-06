@@ -1,13 +1,26 @@
 import { useEffect, useState } from "react";
+import Welcome from "./Welcome";
 import styles from "./room.module.css";
 import Chat from "./Chat";
 import Contact from "./Contact";
 
 function Room(props) {
-  const { socket, roomValue, usernameValue, users } = props;
- 
-
-console.log('users in room', users)
+  const {
+    socket,
+    usernameValue,
+    setUsers,
+    users,
+    setMessageList,
+    contactId,
+    messageList,
+    setPrivateMessage,
+    privateMessage,
+  } = props;
+  const [activeContact , setActiveContact ] = useState(false)
+  const [privatContact, setPrivateContact] = useState({
+    fals: false,
+    username: "",
+  });
 
   return (
     <div className={styles["room-container"]}>
@@ -17,15 +30,30 @@ console.log('users in room', users)
           <span>{usernameValue}</span>
         </div>
         {users.map((item) => (
-          <Contact room={item.room} username={item.username} />
+          <Contact
+            username={item.username}
+            socket={socket}
+            setPrivateFlag={setPrivateContact}
+            key={item.id}
+          />
         ))}
       </div>
-      <Chat
-        socket={socket}
-        roomValue={roomValue}
-        usernameValue={usernameValue}
-
-      />
+      {privatContact.flag ? (
+        <Chat
+          socket={socket}
+          usernameValue={usernameValue}
+          privatContact={privatContact}
+          setUsers={setUsers}
+          users={users}
+          setMessageList={setMessageList}
+          contactId={contactId}
+          messageList={messageList}
+          privateMessage={privateMessage}
+          setPrivateMessage={setPrivateMessage}
+        />
+      ) : (
+        <Welcome />
+      )}
     </div>
   );
 }

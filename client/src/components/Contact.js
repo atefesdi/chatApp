@@ -1,13 +1,23 @@
-import styles from "./contact.module.css"
+import { useState } from "react";
+import PrivateRoom from "./PrivateRoom";
+import styles from "./contact.module.css";
 
-function Contact (props){
-    console.log(props.username)
+function Contact(props) {
 
-    return(
-        <div className={styles["contact-container"]}>
-            <span>{props.username}</span>
-        </div>
-    )
+  async function privateMessage() {
+  
+   await props.socket.emit("send-username" , props.username)
+    
+    props.setPrivateFlag({flag: true , username:props.username})
+  }
+
+
+  return (
+    <div className={styles["contact-container"]} onClick={privateMessage}>
+ 
+      <span>{props.username}</span>
+    </div>
+  );
 }
 
-export default Contact ;
+export default Contact;

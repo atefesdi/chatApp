@@ -1,0 +1,50 @@
+.private-chat-container{
+    width: 250px;
+    height: 250px;
+    background-color: #fff;
+    position: absolute;
+    /* box-shadow: -10px -10px 10px gray, 10px 10px 10px gray; */
+
+}
+.write-message-container{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+.write-message-container input {
+    width: 80%;
+    border: 1px solid #3333;
+    height: 27px;
+    outline: none;
+}
+.write-message-container button{
+    width: 20%;
+    height: 29px;
+    background-color: black;
+    color: #fff;
+    cursor: pointer;
+}
+.header-private-message{
+    background-color: rgba(177, 204, 177, 0.6);
+    height: 45px;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+
+}
+.header-private-message p{
+    width: 80%;
+}
+.icons{
+    cursor: pointer;
+}
+.icons:hover{
+    color: rgb(209, 12, 12);
+}
+.message-container{
+    height: 80%;
+    width: 100%;
+}

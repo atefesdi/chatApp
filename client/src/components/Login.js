@@ -5,25 +5,17 @@ function Login(props) {
   const {
     socket,
     setLoginFlag,
-    setroomValue,
     setUsernameValue,
-    roomValue,
     usernameValue,
-    setUsers,
-    users,
   } = props;
 
   function usernameHandler(event) {
     setUsernameValue(event.target.value);
   }
 
-  function roomHandler(event) {
-    setroomValue(event.target.value);
-  }
-
   function joinChatHandler() {
-    if (roomValue !== "" && usernameValue !== "") {
-      const data = { room: roomValue, username: usernameValue };
+    if (usernameValue !== "") {
+      const data = { username: usernameValue };
       socket.emit("join-room", data);
       setLoginFlag(true);
     }
@@ -38,8 +30,6 @@ function Login(props) {
         type="text"
         onChange={usernameHandler}
       />
-      <label htmlFor="room">room:</label>
-      <input id="room" name="room" type="text" onChange={roomHandler} />
 
       <button onClick={joinChatHandler}>join</button>
     </div>
