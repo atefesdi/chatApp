@@ -26,30 +26,20 @@ io.on("connection", (socket) => {
     socket.broadcast.emit("join-message", user);
     socket.emit("get-contact", allUsers);
   });
-
-  // socket.emit("get-contact", allUsers);
-
-  // socket.on("send-message", (data) => {
-  //   console.log("public data", data);
-  //   socket.broadcast.emit("recive-message", data);
-  // });
+  
   socket.on("send-username", (username) => {
     const user = allUsers.filter((item) => item.username === username);
     let userId = user.pop();
-    console.log( userId?.id);
     socket.emit("recive-id", userId?.id);
   });
 
   socket.on("send-message", (data ) => {
     privateData.push(data);
-    console.log('data.id', data.id)
 
     if (data.contactId == "public") {
       socket.broadcast.emit("recive-message", data);
-      console.log("public");
     } else {
       socket.to(data.contactId).emit("recive-private-message", privateData );
-      // socket.emit("recive-private-message", privateData);
     }
   });
   socket.on("disconnect", () => {

@@ -17,7 +17,7 @@ function Chat (props) {
     setPrivateMessage,
     privateMessage
   } = props
-  console.log('privateMessage', privateMessage)
+  
 
   function msgHandler (event) {
     setMessage(event.target.value)
@@ -31,6 +31,7 @@ function Chat (props) {
       }
     }
   }
+
 
   async function sendHandler () {
     if (Message !== '') {
@@ -49,20 +50,6 @@ function Chat (props) {
       } else {
         setPrivateMessage([...privateMessage, messageData])
       }
-      // }else {
-      //   console.log("private conditions")
-      //   const messageData = {
-      //     Message: Message,
-      //     author: usernameValue,
-      //     id: contactId,
-      //     time:
-      //       new Date(Date.now()).getHours() +
-      //       ':' +
-      //       new Date(Date.now()).getMinutes()
-      //   }
-      //   await socket.emit("send-private-message", messageData)
-      //   setPrivateMessage([...privateMessage , messageData])
-      // }
     }
   }
 

@@ -16,6 +16,7 @@ function Room(props) {
     setPrivateMessage,
     privateMessage,
   } = props;
+  
   const [activeContact , setActiveContact ] = useState(false)
   const [privatContact, setPrivateContact] = useState({
     fals: false,
@@ -35,6 +36,7 @@ function Room(props) {
             socket={socket}
             setPrivateFlag={setPrivateContact}
             key={item.id}
+            setActiveContact={setActiveContact}
           />
         ))}
       </div>
