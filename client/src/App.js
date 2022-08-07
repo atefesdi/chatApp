@@ -18,7 +18,6 @@ function App() {
     setUsers([...users, ...allUsers]);
     console.log("all users:", allUsers);
   });
-  console.log("users", users);
 
 
 

@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import Welcome from "./Welcome";
+import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
 import styles from "./room.module.css";
 import Chat from "./Chat";
 import Contact from "./Contact";
@@ -16,18 +17,25 @@ function Room(props) {
     setPrivateMessage,
     privateMessage,
   } = props;
-  
-  const [activeContact , setActiveContact ] = useState(false)
+
+  const [activeStyle, setActiveStyle] = useState(-1);
   const [privatContact, setPrivateContact] = useState({
-    fals: false,
+    flag: false,
     username: "",
   });
+
+  function checkActiveContact(activeContact) {
+    console.log("activeContact", activeContact);
+    
+  }
 
   return (
     <div className={styles["room-container"]}>
       <div className={styles["contact-container"]}>
         <div className={styles["contact-info"]}>
-          <div className={styles["cyrcle-info"]}></div>
+          <div className={styles["cyrcle-info"]}>
+            <PersonOutlineIcon className={styles["user-icon-styles"]} />
+          </div>
           <span>{usernameValue}</span>
         </div>
         {users.map((item) => (
@@ -36,7 +44,9 @@ function Room(props) {
             socket={socket}
             setPrivateFlag={setPrivateContact}
             key={item.id}
-            setActiveContact={setActiveContact}
+            id={item.id}
+            checkActiveContact={checkActiveContact}
+            activeStyle={activeStyle}
           />
         ))}
       </div>
@@ -54,7 +64,7 @@ function Room(props) {
           setPrivateMessage={setPrivateMessage}
         />
       ) : (
-        <Welcome />
+        <Welcome username={usernameValue} />
       )}
     </div>
   );

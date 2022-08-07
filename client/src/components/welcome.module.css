@@ -1,9 +1,15 @@
 .container {
     width: 100%;
     /* background-color: #a1b5dd; */
+    background-image: url("../../public/images/home.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 100%;
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: space-around;
+    flex-direction: column;
+    padding-top: 30px;
     color: #333;    
     font-size: x-large;
 }

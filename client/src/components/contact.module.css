@@ -12,7 +12,13 @@
     cursor: pointer;
     justify-content: center;
     align-items: center;
+    border: 1px solid #3333;
+    height: 35px;
 }
 .contact-container:hover{
-    border: 1px solid darkgreen;
+    border: 1px solid #333;
+}
+
+.active {
+    border: 1px solid #333;
 }
