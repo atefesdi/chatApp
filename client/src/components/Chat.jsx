@@ -38,6 +38,7 @@ function Chat (props) {
       const messageData = {
         Message: Message,
         author: usernameValue,
+        authorId : socket.id,
         contactId: contactId,
         time:
           new Date(Date.now()).getHours() +
@@ -52,6 +53,8 @@ function Chat (props) {
       }
     }
   }
+  console.log('messageList', messageList)
+  console.log(privateMessage , "private message")
 
   return (
     <div className={styles['chat-container']}>
@@ -63,18 +66,22 @@ function Chat (props) {
               <Msg
                 username={usernameValue}
                 Message={item.Message}
+                authorId={item.authorId}
                 author={item.author}
                 time={item.time}
                 key={Math.random()}
+                socket={socket}
               />
             ))
           : privateMessage.map(item => (
               <Msg
                 username={usernameValue}
                 Message={item.Message}
+                authorId={item.authorId}
                 author={item.author}
                 time={item.time}
                 key={Math.random()}
+                socket={socket}
               />
             ))}
       </ScrollToBottom>
@@ -87,7 +94,6 @@ function Chat (props) {
           value={Message}
         />
         <button onClick={sendHandler}>send</button>
-        {/* <Button title="Send" onClick={sendHandler} color="" /> */}
       </div>
     </div>
   )

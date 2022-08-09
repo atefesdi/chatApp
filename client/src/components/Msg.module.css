@@ -8,10 +8,10 @@
   justify-content: center;
 }
 .right{
-    align-items: flex-start;
+    align-items: flex-end;
 }
 .left{
-    align-items: flex-end;
+    align-items: flex-start;
 }
 
 .text-container {
@@ -31,7 +31,7 @@
 
 }
 .you{
-    background-color: rgb(163, 235, 163) !important;
+    background-color: rgb(132, 177, 236) !important;
 }
 .another{
     background-color: #ffff!important;

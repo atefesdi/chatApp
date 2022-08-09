@@ -26,6 +26,7 @@ function App() {
       username: user.username,
       Message: `${user.username} join in the room `,
       author: "null",
+      authorId: "null",
       time:
         new Date(Date.now()).getHours() +
         ":" +
@@ -40,6 +41,7 @@ function App() {
       username: username,
       Message: `${username} left the room `,
       author: "null",
+      authorId: "null",
       time:
         new Date(Date.now()).getHours() +
         ":" +
