@@ -9,15 +9,29 @@ function Chat (props) {
   const {
     socket,
     usernameValue,
-    setUsers,
-    users,
     contactId,
     setMessageList,
     messageList,
     setPrivateMessage,
-    privateMessage
+    privateMessage,
+    privatContact,
+    notifArr,
+    setNotifArr
   } = props
+
+
+
+  useEffect(() => {
+    socket.on('recive-private-message', data => {
+      let newArr = notifArr.filter(item => item.authorId !== data.authorId)
+      setNotifArr(newArr)
+    })
+  }, [notifArr  , setNotifArr])
+
+
   
+
+  console.log('notifArr', notifArr)
 
   function msgHandler (event) {
     setMessage(event.target.value)
@@ -32,14 +46,14 @@ function Chat (props) {
     }
   }
 
-
   async function sendHandler () {
     if (Message !== '') {
       const messageData = {
         Message: Message,
         author: usernameValue,
-        authorId : socket.id,
+        authorId: socket.id,
         contactId: contactId,
+        id: Math.random(),
         time:
           new Date(Date.now()).getHours() +
           ':' +
@@ -53,21 +67,21 @@ function Chat (props) {
       }
     }
   }
-  console.log('messageList', messageList)
-  console.log(privateMessage , "private message")
 
   return (
     <div className={styles['chat-container']}>
-      <div className={styles['chat-header']}></div>
+      <div className={styles['chat-header']}>
+        <h3>{privatContact.username}</h3>
+      </div>
       <ScrollToBottom className={styles['chat-body']}>
-        {//  props.id === "public"?
-        props.privatContact.username === 'public'
+        {props.privatContact.username === 'public'
           ? messageList.map(item => (
               <Msg
                 username={usernameValue}
                 Message={item.Message}
                 authorId={item.authorId}
                 author={item.author}
+                id={item.id}
                 time={item.time}
                 key={Math.random()}
                 socket={socket}
@@ -79,6 +93,7 @@ function Chat (props) {
                 Message={item.Message}
                 authorId={item.authorId}
                 author={item.author}
+                id={item.id}
                 time={item.time}
                 key={Math.random()}
                 socket={socket}
@@ -100,24 +115,3 @@ function Chat (props) {
 }
 
 export default Chat
-
-// interface ButtonProps {
-//   title: String;
-//   onClick(): void;
-//   color: "primary" | "secondary" |'Asghar';
-//   private?:boolean
-// }
-
-// function Button(props: ButtonProps) {
-//   const {private=false}=props;
-//   console.log('private', private)
-//   return (
-//     <button
-//       onClick={props.onClick}
-//       style={{ color: props.color == "primary" ? "#f06" : "#0ff" }}
-//     >
-//       {" "}
-//       {props.title}
-//     </button>
-//   );
-// }

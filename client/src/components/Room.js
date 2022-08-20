@@ -16,6 +16,9 @@ function Room(props) {
     messageList,
     setPrivateMessage,
     privateMessage,
+    setNotification,
+    notification,
+    notificationUserId
   } = props;
 
   const [activeStyle, setActiveStyle] = useState(-1);
@@ -24,9 +27,10 @@ function Room(props) {
     username: "",
   });
 
-  function checkActiveContact(activeContact) {
-    console.log("activeContact", activeContact);
-    
+
+
+  function checkActiveContact(id) {
+    setActiveStyle(id === activeStyle ? -1 : id); 
   }
 
   return (
@@ -47,6 +51,8 @@ function Room(props) {
             id={item.id}
             checkActiveContact={checkActiveContact}
             activeStyle={activeStyle}
+            notifArr={props.notifArr}
+            setNotifArr={props.setNotifArr}
           />
         ))}
       </div>
@@ -62,6 +68,8 @@ function Room(props) {
           messageList={messageList}
           privateMessage={privateMessage}
           setPrivateMessage={setPrivateMessage}
+          notifArr={props.notifArr}
+          setNotifArr={props.setNotifArr}
         />
       ) : (
         <Welcome username={usernameValue} />

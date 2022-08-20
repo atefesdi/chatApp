@@ -7,12 +7,35 @@
 }
 
 .chat-header{
-    height: 10%;
+    color: #ffff;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    height: 8%;
+    background-color: #262626;
+    align-items: center;
+    padding-right: 50px;
+    /* border-radius:5px ; */
+    font-size: 30px;
+    
 }
 .chat-body{
     height: 80%;
     overflow: auto;
 }
+.chat-body button{
+    background-color: rgba(51, 51, 51, 0.137) !important;
+    border-radius: 50% !important;
+    width: 40px !important;
+    height: 40px !important;
+    background: url(../../public/images/down-arrow-svgrepo-com.svg);
+    
+}
+.chat-body button::after{
+    content: "";
+    
+}
+
 .chat-footer{
     display: flex;
     flex-direction: row;

@@ -13,13 +13,30 @@ function App() {
   const [privateMessage, setPrivateMessage] = useState([]);
   const [messageList, setMessageList] = useState([]);
   const [contactId, setContactId] = useState("");
+  const [notification, setNotification] = useState(0);
+  const [notificationUserId, setNotificationUserId] = useState("");
+  const [notifArr, setNotifArr] = useState([]);
 
+  function sendNotification(data) {
+    if (notifArr.length === 0) {
+      setNotifArr([...notifArr, { authorId: data.authorId, counter: 1 }]);
+    } else {
+      let index = notifArr.findIndex((item) => item.authorId == data.authorId);
+      let findNode = notifArr[index];
+      if (index >= 0) {
+        let newarr = notifArr.filter((item) => item.authorId !== data.authorId);
+        findNode = { authorId: data.authorId, counter: findNode.counter + 1 };
+        setNotifArr([...newarr, findNode]);
+      } else {
+        setNotifArr([...notifArr, { authorId: data.authorId, counter: 1 }]);
+      }
+    }
+  }
   socket.on("get-contact", (allUsers) => {
-    setUsers([...users, ...allUsers]);
-    console.log("all users:", allUsers);
+    let newArr = allUsers.filter((item) => item.id !== socket.id);
+
+    setUsers([...users, ...newArr]);
   });
-
-
 
   socket.on("join-message", (user) => {
     let notif = {
@@ -27,13 +44,14 @@ function App() {
       Message: `${user.username} join in the room `,
       author: "null",
       authorId: "null",
+      id: Math.random(),
       time:
         new Date(Date.now()).getHours() +
         ":" +
         new Date(Date.now()).getMinutes(),
     };
     setMessageList([...messageList, notif]);
-    setUsers([...users ,{username: user.username , id: user.id }])
+    setUsers([...users, { username: user.username, id: user.id }]);
   });
 
   socket.on("disconnect-message", (username) => {
@@ -42,6 +60,7 @@ function App() {
       Message: `${username} left the room `,
       author: "null",
       authorId: "null",
+      id: Math.random(),
       time:
         new Date(Date.now()).getHours() +
         ":" +
@@ -50,18 +69,19 @@ function App() {
     setMessageList([...messageList, notif]);
   });
 
-
   socket.on("recive-id", (id) => {
     setContactId(id);
   });
 
-  socket.on("recive-private-message", (data) => {
-    console.log("recive-private-message", data);
-    setPrivateMessage( [ ...data]);
+  socket.on("recive-message", (data) => {
+    setNotification(notification + 1);
+    setNotificationUserId("public");
+    setMessageList([...messageList, data]);
   });
 
-  socket.on("recive-message", (data) => {
-    setMessageList([...messageList, data]);
+  socket.on("recive-private-message", (data) => {
+    sendNotification(data);
+    setPrivateMessage([...privateMessage, data]);
   });
 
   return (
@@ -85,6 +105,11 @@ function App() {
           messageList={messageList}
           privateMessage={privateMessage}
           setPrivateMessage={setPrivateMessage}
+          setNotification={setNotification}
+          notification={notification}
+          notificationUserId={notificationUserId}
+          notifArr={notifArr}
+          setNotifArr={setNotifArr}
         />
       )}
     </div>
