@@ -21,7 +21,6 @@ io.on("connection", (socket) => {
       username: data.username,
       id: socket.id,
     };
-    console.log('data', user)
     allUsers.push(user);
     socket.broadcast.emit("join-message", user);
     socket.emit("get-contact", allUsers);
@@ -39,7 +38,7 @@ io.on("connection", (socket) => {
     if (data.contactId == "public") {
       socket.broadcast.emit("recive-message", data);
     } else {
-      socket.to(data.contactId).emit("recive-private-message", privateData );
+      socket.to(data.contactId).emit("recive-private-message", data );
     }
   });
   socket.on("disconnect", () => {
