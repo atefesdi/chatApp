@@ -8,10 +8,10 @@
   justify-content: center;
 }
 .right{
-    align-items: flex-start;
+    align-items: flex-end;
 }
 .left{
-    align-items: flex-end;
+    align-items: flex-start;
 }
 
 .text-container {
@@ -19,6 +19,8 @@
   border-radius: 5px;
   padding: 15px;
   margin: 0;
+  min-width: 40px;
+  margin: 0 10px 0 10px;
 }
 .meta-text {
   width: 80px;
@@ -31,7 +33,7 @@
 
 }
 .you{
-    background-color: rgb(163, 235, 163) !important;
+    background-color: #62626262 !important;
 }
 .another{
     background-color: #ffff!important;

@@ -13,37 +13,40 @@ const io = new Server(server, {
   },
 });
 
-
-let allUsers = [];
+let allUsers = [{ username: "public", id: "public" }];
+let privateData = [];
 io.on("connection", (socket) => {
   socket.on("join-room", (data) => {
-    socket.join(data.room);
     const user = {
-      room: data.room,
       username: data.username,
       id: socket.id,
     };
     allUsers.push(user);
-    console.log("users =", allUsers);
-    socket.to(data.room).emit("join-message", data.username);
-
-    otherusers = allUsers.filter(item => socket.id !== item.id )
-    setInterval(function () {socket.to(data.room).emit("get-contact" ,allUsers)}, 1000);
-    
+    socket.broadcast.emit("join-message", user);
+    socket.emit("get-contact", allUsers);
   });
   
-  
-
-  socket.on("send-message", (data) => {
-    socket.to(data.room).emit("recive-message",data);
+  socket.on("send-username", (username) => {
+    const user = allUsers.filter((item) => item.username === username);
+    let userId = user.pop();
+    socket.emit("recive-id", userId?.id);
   });
 
+  socket.on("send-message", (data ) => {
+    privateData.push(data);
+
+    if (data.contactId == "public") {
+      socket.broadcast.emit("recive-message", data);
+    } else {
+      socket.to(data.contactId).emit("recive-private-message", data );
+    }
+  });
   socket.on("disconnect", () => {
     const disconnectedUser = allUsers.filter((item) => item.id == socket.id);
-    allUsers = allUsers.filter(item => socket.id !== item.id)
+    allUsers = allUsers.filter((item) => socket.id !== item.id);
     const userrr = disconnectedUser.pop();
- 
-   socket.to(userrr?.room).emit("disconnect-message", userrr?.username);
+
+    socket.broadcast.emit("disconnect-message", userrr?.username);
   });
 });
 
